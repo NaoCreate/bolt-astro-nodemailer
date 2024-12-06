@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { client } from '../../utils/microcms';
+import type { BlogResponse } from '../../utils/microcms';
+
+const response = await client.get<BlogResponse>({ endpoint: 'blogs' });
+const posts = response.contents;
+---
+
+<Layout title="ブログ">
+  <main>
+    <PageHeader 
+      title="ブログ" 
+      description="最新の記事一覧"
+    />
+    
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <BlogCard
+          title={post.title}
+          publishedAt={post.publishedAt}
+          id={post.id}
+          category={post.category}
+          eyecatch={post.eyecatch}
+        />
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 1200px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+</style>

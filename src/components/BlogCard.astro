@@ -1,0 +1,97 @@
+---
+interface Props {
+  title: string;
+  publishedAt: string;
+  id: string;
+  category?: {
+    id: string;
+    name: string;
+  };
+  eyecatch?: {
+    url: string;
+    height: number;
+    width: number;
+  };
+}
+
+const { title, publishedAt, id, category, eyecatch } = Astro.props;
+const date = new Date(publishedAt).toLocaleDateString('ja-JP');
+---
+
+<article class="blog-card">
+  <a href={`/blog/${id}`}>
+    {eyecatch && (
+      <img
+        src={eyecatch.url}
+        alt={title}
+        width={eyecatch.width}
+        height={eyecatch.height}
+        class="blog-image"
+      />
+    )}
+    <div class="blog-content">
+      {category && (
+        <a href={`/category/${category.id}`} class="category">
+          {category.name}
+        </a>
+      )}
+      <h2 class="blog-title">{title}</h2>
+      <time class="blog-date">{date}</time>
+    </div>
+  </a>
+</article>
+
+<style>
+  .blog-card {
+    background: #23262d;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .blog-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .blog-content {
+    padding: 1rem;
+  }
+
+  .category {
+    display: inline-block;
+    background: #883aea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .category:hover {
+    background: #6b2ea6;
+  }
+
+  .blog-title {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .blog-date {
+    color: #888;
+    font-size: 0.875rem;
+  }
+</style>

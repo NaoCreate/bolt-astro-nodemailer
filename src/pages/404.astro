@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+---
+
+<Layout title="404: ページが見つかりません">
+  <main>
+    <PageHeader 
+      title="404: ページが見つかりません"
+      description="お探しのページは存在しないか、移動または削除された可能性があります。"
+    />
+    <div class="error-content">
+      <p>以下のいずれかをお試しください：</p>
+      <ul>
+        <li>URLが正しく入力されているかご確認ください</li>
+        <li>ブラウザの「戻る」ボタンを使用して前のページに戻る</li>
+        <li><a href="/">トップページ</a>に戻る</li>
+        <li><a href="/blog">ブログ一覧</a>を見る</li>
+      </ul>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .error-content {
+    background: #23262d;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+  }
+
+  ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: #883aea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #6b2ea6;
+    text-decoration: underline;
+  }
+</style>
